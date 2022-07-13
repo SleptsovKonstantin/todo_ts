@@ -1,0 +1,32 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  h1 {
+    background-color: rgb(160, 160, 162);
+  }
+}
+
+.item-list {
+  display: grid;
+  justify-content: center;
+
+  .item-todo {
+    margin: 10px;
+    display: flex;
+    text-align: center;
+    justify-content:space-evenly;
+    width: 300px;
+  
+    .item_text_comp {
+      text-decoration: line-through;
+      text-decoration-color: red;
+    }
+  }
+}
+
+.item-delete {
+ cursor: pointer;
+}

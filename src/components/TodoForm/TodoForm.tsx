@@ -1,28 +1,42 @@
-import "./TodoForm.css";
-import { useState } from 'react';
+import React from "react";
+import { ChangeEvent, useState } from "react";
 
-const TodoForm = () => {
+type TodoListProps = {
+  addTask(userInput: string): void
+}
 
-  const [todo, useTodo] = useState('');
+const TodoForm: React.FC<TodoListProps> = ({ addTask }) => {
+  const [userInput, setUserInput] = useState<string>("");
 
-  const taskChange = (e: any): void => {
-    // console.log(typeof e.currentTarget.value);
-    useTodo(todo=> todo = e.currentTarget.value)
-    console.log(todo);
-  }
+  const taskChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setUserInput(String(e.currentTarget.value));
+  };
 
-  const addTask = () => {
-    
-  }
+  const handleSubmit = (e: any): void => {
+    e.preventDefault();
+    addTask(userInput);
+    setUserInput("");
+  };
+
+  const KeyPress = (event: React.KeyboardEvent): void => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addTask(userInput);
+      setUserInput("");
+    }
+  };
 
   return (
-    <div className="TodoForm">
-      <input 
+    <form onSubmit={handleSubmit}>
+      <input
+        value={userInput}
+        type="text"
         onChange={taskChange}
-        type="text" 
-        placeholder="Введите значение.."></input>
-      <button onClick={addTask}>  Add Task</button> 
-    </div>
+        onKeyDown={KeyPress}
+        placeholder="Введите значение.."
+      />
+      <button>Добавить</button>
+    </form>
   );
 };
 
